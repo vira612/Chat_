@@ -1,0 +1,238 @@
+openapi: 3.0.0
+info:
+  version: '1.0.0'
+  title: 'Chat-API'
+  description: 'chat API '
+paths: 
+  /logIn: 
+    post:
+      description: allow registered users to logIn
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema:
+              type: object
+              properties: 
+                userName:
+                  type: string
+                  example: abc1
+                password:
+                  type: string
+                  example: xyz
+      
+      responses:
+        200:
+          description: successfully loged in.
+        404:
+          description: Not registerd User.
+          
+  /signUp:
+    post:
+      description: register a new user
+      requestBody:
+        required : true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties :
+                id:
+                  type: integer
+                  example: 2
+                      
+                userName:
+                  type: string
+                  example: abc1
+              
+                password:
+                  type: string
+                  example: pqr
+                      
+                firstName:
+                  type: string
+                  example: abc
+                      
+                lastName:
+                  type: string
+                  example: xyz
+                      
+                number:
+                  type: integer
+                  example: 1234567890
+                      
+                email:
+                  type: string
+                  example: abc@xyz.com
+        
+      responses:
+        200:
+          description: User registered successfully.
+        403:
+          description: User Already exist.
+          
+  /users:
+    get:
+      description: get all users.
+      responses:
+        200:
+          description: successfully fetch all users.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties:
+                    id:
+                      type: integer
+                      example: 2
+                    userName:
+                      type: string
+                      example: abc1
+                    password: 
+                      type: string
+                      example: abc123
+                    firstName:
+                      type: string
+                      example: abc
+                    lastName:
+                      type: string
+                      example: xyz
+                    number:
+                      type: integer
+                      example: 1234567890
+                    email:
+                      type: string
+                      example: abc@xyz.com
+      
+  /users/{id}:
+    get:
+      description: get information of particular user.
+      parameters: 
+        - name: id
+          in: path
+          required: true
+          description: Id of a user.
+          schema:
+            type: integer
+            example: 2
+            
+      responses:
+        200:
+          description: successfully fetch the User's information.
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  properties:
+                    id:
+                      type: integer
+                      example: 2
+                      
+                    userName:
+                      type: string
+                      example: abc1
+                      
+                    password:
+                      type: string
+                      example: abc1234
+                      
+                    firstName:
+                      type: string
+                      example: abc
+                      
+                    lastName:
+                      type: string
+                      example: xyz
+                      
+                    number:
+                      type: integer
+                      example: 1234567890
+                      
+                    email:
+                      type: string
+                      example: abc@xyz.com
+        404:
+          description: User of this ID not found
+                      
+    put:
+      description: to update User's information.
+      parameters: 
+        - name: id
+          required: true
+          in: path
+          description: Update particular ID's information
+          schema:
+            type: integer
+            example: 2
+      
+      responses:
+        200:
+          description: User information updated successfully.
+        
+    delete:
+      description: to delete user .
+      parameters: 
+          - name: id
+            required: true
+            in: path
+            description: delete particular id
+            schema:
+              type: integer
+              example: 2
+      
+      responses:
+          200:
+            description: User deleted successfully.
+    
+  /users/friends/{id}:
+    get:
+      description: get List of users's all friends.
+      parameters: 
+        - name: id
+          in: path
+          required: true
+          description: Id of a user.
+          schema:
+            type: integer
+            example: 2
+            
+      responses:
+        200:
+          description: successfully fetch the User's friends.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties:
+                    id:
+                      type: integer
+                      example: 2
+        404:
+          description: User of this ID not found      
+  
+  /users/friends/{id}/{id1}:
+    post:
+      description: to add or remove id1 as friend for id.
+      parameters: 
+        - name: id
+          in: path
+          required: true
+          description: Id of a user.
+          schema:
+            type: integer
+            example: 2
+            
+        - name: id1
+          in: path
+          required: true
+          description: Id of other User, whom you want to add as friend
+          schema:
+            type: integer
+            example: 5
+      
+      responses:
+        200:
+          description: user id added/removed id1 as friend successfully.
