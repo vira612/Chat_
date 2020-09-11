@@ -27,9 +27,12 @@
                    - Modules : - body-parser (parse request body)
                                - nodemon (starts the server automatically after change)
                                - morgan (HTTP request logger middleware)
-                              
+  
+ ---
                     
  ### How to run : npm start 
+ 
+ ---
  
  #### files : 
          - Package.json (npm packages,entry point), 
